@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eco Club — Profile</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <style>
+    /* ===== ECO CLUB DESIGN SYSTEM ===== */
+    :root {
+      /* Eco Green Color Palette */
+      --brand: #2ecc71;
+      --brand-dark: #27ae60;
+      --brand-light: #52d394;
+      --brand-ultra-light: rgba(46, 204, 113, 0.1);
+      --brand-soft: rgba(46, 204, 113, 0.15);
+      
+      --text: #1a202c;
+      --text-secondary: #4a5568;
+      --bg: #f7fffe;
+      --bg-secondary: #ecfdf5;
+      --card-bg: #ffffff;
+      --muted: #718096;
+      --border: #d4f4dd;
+      --border-light: #e6fffa;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(46, 204, 113, 0.08);
+      --shadow: 0 4px 20px rgba(46, 204, 113, 0.12);
+      --shadow-lg: 0 10px 30px rgba(46, 204, 113, 0.15);
+      --shadow-xl: 0 20px 40px rgba(46, 204, 113, 0.2);
+      
+      /* Gradients */
+      --gradient-brand: linear-gradient(135deg, var(--brand), var(--brand-light));
+      --gradient-soft: linear-gradient(135deg, var(--bg-secondary), var(--card-bg));
+      --gradient-card: linear-gradient(145deg, #ffffff, #f8fffe);
+      
+      /* Transitions */
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    [data-theme="dark"] {
+      --brand: #34d399;
+      --brand-dark: #059669;
+      --brand-light: #6ee7b7;
+      --brand-ultra-light: rgba(52, 211, 153, 0.1);
+      --brand-soft: rgba(52, 211, 153, 0.15);
+      
+      --text: #f7fafc;
+      --text-secondary: #a0aec0;
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --card-bg: #1e293b;
+      --muted: #64748b;
+      --border: #334155;
+      --border-light: #475569;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+      
+      --gradient-card: linear-gradient(145deg, #1e293b, #334155);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: var(--transition);
+      overflow-x: hidden;
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    @keyframes slideInRight {
+      from { 
+        opacity: 0; 
+        transform: translateX(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    @keyframes scaleIn {
+      from { 
+        opacity: 0; 
+        transform: scale(0.9); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1); 
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: calc(200px + 100%) 0; }
+    }
+
+    @keyframes bounceSubtle {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* ===== NAVIGATION ===== */
+    header.nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 2rem;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: var(--transition);
+      animation: fadeInUp 0.6s ease-out;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    [data-theme="dark"] header.nav {
+      background: rgba(30, 41, 59, 0.95);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      color: var(--brand);
+      font-size: 1.4rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .brand:hover {
+      transform: scale(1.05);
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+      transition: var(--transition);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .links a:hover {
+      color: var(--brand);
+      background: var(--brand-ultra-light);
+      transform: translateY(-2px);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .welcome-user {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .theme-btn, .logout-btn {
+      background: var(--gradient-brand);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-btn:hover, .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .theme-btn {
+      padding: 0.75rem;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      justify-content: center;
+    }
+
+    /* ===== PROFILE HEADER ===== */
+    .profile-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      background: var(--gradient-card);
+      padding: 2.5rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-brand);
+      border-radius: 24px 24px 0 0;
+    }
+
+    .profile-header:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+    }
+
+    .avatar-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--brand);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .avatar-container:hover .avatar {
+      border-color: var(--brand-light);
+      transform: scale(1.05);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .avatar-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: var(--gradient-brand);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+    }
+
+    .avatar-btn:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-info h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--text), var(--brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .member-since {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .like-btn {
+      background: transparent;
+      border: 2px solid var(--brand);
+      color: var(--brand);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .like-btn:hover {
+      background: var(--brand);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .like-btn.liked {
+      background: var(--brand);
+      color: white;
+      border-color: var(--brand);
+      animation: bounceSubtle 0.6s ease;
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 2.5rem 0;
+      animation: fadeInUp 0.9s ease-out;
+    }
+
+    .stat-item {
+      text-align: center;
+      background: var(--gradient-card);
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-brand);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-item:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stat-value {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 0.5rem;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .stat-item:hover .stat-value {
+      transform: scale(1.1);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== CONTENT SECTIONS ===== */
+    .about-section, .events-section {
+      background: var(--gradient-card);
+      padding: 2.5rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .events-section {
+      animation: fadeInUp 1.1s ease-out;
+    }
+
+    .about-section::before, .events-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-brand);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .about-section:hover, .events-section:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+    }
+
+    .section-title {
+      margin: 0 0 2rem 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-title i {
+      font-size: 1.5rem;
+      color: var(--brand);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand-ultra-light);
+      border-radius: 12px;
+    }
+
+    .about-content {
+      padding: 2rem;
+      border-radius: 16px;
+      background: var(--brand-soft);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      transition: var(--transition);
+      border-left: 4px solid var(--brand);
+      font-size: 1.1rem;
+    }
+
+    .about-content:hover {
+      background: rgba(46, 204, 113, 0.2);
+    }
+
+    .about-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .edit-btn {
+      background: var(--gradient-brand);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .edit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== EVENTS ===== */
+    .events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--brand-soft);
+      padding: 1.5rem;
+      border-radius: 16px;
+      transition: var(--transition);
+      border-left: 4px solid var(--brand);
+      border: 1px solid var(--border-light);
+    }
+
+    .event-item:hover {
+      transform: translateX(8px);
+      box-shadow: var(--shadow);
+      background: rgba(46, 204, 113, 0.2);
+    }
+
+    .event-icon {
+      font-size: 2rem;
+      color: var(--brand);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .event-item:hover .event-icon {
+      transform: scale(1.1) rotate(5deg);
+      background: var(--brand);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .event-details {
+      flex: 1;
+    }
+
+    .event-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .event-date, .event-location {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    .no-events {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer.foot {
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      border-top: 1px solid var(--border);
+      animation: fadeInUp 1.2s ease-out;
+      background: var(--bg-secondary);
+    }
+
+    /* ===== TEXTAREA STYLING ===== */
+    textarea {
+      width: 100% !important;
+      min-height: 120px !important;
+      padding: 1.5rem !important;
+      border-radius: 12px !important;
+      border: 2px solid var(--border) !important;
+      background: var(--card-bg) !important;
+      color: var(--text) !important;
+      font-family: inherit !important;
+      font-size: 1rem !important;
+      line-height: 1.6 !important;
+      transition: var(--transition) !important;
+      resize: vertical !important;
+    }
+
+    textarea:focus {
+      outline: none !important;
+      border-color: var(--brand) !important;
+      box-shadow: 0 0 0 3px var(--brand-ultra-light) !important;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      .nav-wrap {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+      }
+      
+      .brand {
+        order: 1;
+      }
+      
+      .nav-cta {
+        order: 2;
+      }
+
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+      }
+      
+      .user-info h1 {
+        font-size: 2rem;
+      }
+      
+      .actions-row {
+        justify-content: center;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        padding: 0 1rem;
+      }
+      
+      .profile-header {
+        padding: 1.5rem;
+      }
+      
+      .avatar-container {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .about-section, .events-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-wrap">
+      <a class="brand" href="/">
+        <img src="https://cdn-icons-png.flaticon.com/512/3616/3616930.png" alt="Eco Club logo">
+        <span>Eco Club</span>
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="/home"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="/events"><i class="fa-solid fa-calendar-days"></i> Events</a>
+        <a href="/challenges"><i class="fa-solid fa-trophy"></i> Challenges</a>
+        <a href="/profile"><i class="fa-solid fa-user"></i> Profile</a>
+      </nav>
+      <div class="nav-cta">
+        <div class="welcome-user">
+          <% if (user) { %>
+            👋 Welcome, <%= user.fullname || 'User' %>!
+          <% } else { %>
+            👋 Welcome, User!
+          <% } %>
+        </div>
+        <button class="theme-btn" id="themeBtn"><i class="fa-solid fa-moon"></i></button>
+        <button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PROFILE MAIN ===== -->
+  <main class="profile-container">
+    <!-- Аватар -->
+    <div class="profile-header">
+      <div class="avatar-container" id="avatarWrap">
+        <img id="avatarImg" class="avatar"
+             src="<%= user.profileImage || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>"
+             alt="User avatar">
+        <form id="avatarForm" action="/profile/upload-image" method="POST" enctype="multipart/form-data">
+          <input type="file" name="profileImage" accept="image/*" id="avatarInput" style="display:none;">
+          <button type="button" class="avatar-btn" id="changeAvatarBtn">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </form>
+      </div>
+      <div class="user-info">
+        <h1 class="username" id="username"><%= user.fullname || 'User' %></h1>
+        <p class="member-since" id="memberSince">
+          Участник с <%= user.createdAt ? new Date(user.createdAt).toLocaleDateString('ru-RU',
+          { year: 'numeric', month: 'long' }) : 'недавнего времени' %>
+        </p>
+        <div class="actions-row">
+          <button class="like-btn" id="likeBtn">
+            <span class="heart"><i class="fa-solid fa-heart"></i></span>
+            <span id="likesCount"><%= user.likes || 0 %></span>
+            <span>Likes</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Статы -->
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-value" id="pointsVal"><%= user.scores || 0 %></span>
+        <span class="stat-label">Total Points</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="eventsAttendedVal"><%= user.eventsAttended ? user.eventsAttended.length : 0 %></span>
+        <span class="stat-label">Events Attended</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="badgesVal"><%= user.completedChallenges ? user.completedChallenges.length : 0 %></span>
+        <span class="stat-label">Challenges Completed</span>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="about-section">
+      <h2 class="section-title"><i class="fa-solid fa-user"></i> About Me</h2>
+      <div class="about-content" id="aboutText">
+        <%= user.aboutMe || "— пока ничего не рассказал о себе" %>
+      </div>
+      <textarea id="aboutInput" style="display:none;"></textarea>
+      <div class="about-actions">
+        <button class="edit-btn" id="editAboutBtn"><i class="fa-solid fa-pen"></i> Edit</button>
+        <button class="edit-btn" id="saveAboutBtn" style="display:none;"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div class="events-section">
+      <h2 class="section-title"><i class="fa-solid fa-calendar-days"></i> Recent Events</h2>
+      <div class="events-list" id="eventsList">
+        <% if (user.eventsAttended && user.eventsAttended.length > 0) { %>
+          <% user.eventsAttended.forEach(event => { %>
+            <div class="event-item">
+              <div class="event-icon"><i class="fa-solid fa-calendar"></i></div>
+              <div class="event-details">
+                <div class="event-name"><%= event.title || "Без названия" %></div>
+                <% if (event.date) { %>
+                  <div class="event-date"><%= new Date(event.date).toLocaleDateString('ru-RU') %></div>
+                <% } %>
+                <% if (event.location) { %>
+                  <div class="event-location"><i class="fa-solid fa-location-dot"></i> <%= event.location %></div>
+                <% } %>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p class="no-events">Пока ни одного события</p>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <span>© <span id="year"></span> Eco Club. Built with purpose. 🌿</span>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    document.getElementById("logoutBtn").addEventListener("click", () => location.href = "/logout");
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ==== CHANGE AVATAR ====
+    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarForm = document.getElementById('avatarForm');
+    const avatarImg = document.getElementById('avatarImg');
+
+    changeAvatarBtn.addEventListener('click', () => avatarInput.click());
+
+    avatarInput.addEventListener('change', async () => {
+      if (avatarInput.files.length > 0) {
+        try {
+          changeAvatarBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+          changeAvatarBtn.disabled = true;
+
+          const formData = new FormData(avatarForm);
+          const res = await fetch('/profile/upload-image', { method: 'POST', body: formData });
+
+          if (!res.ok) {
+            throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+          }
+
+          const data = await res.json();
+          if (data.success) {
+            avatarImg.src = data.imageUrl;
+            changeAvatarBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            setTimeout(() => {
+              changeAvatarBtn.innerHTML = '<i class="fa-solid fa-camera"></i>';
+            }, 2000);
+          } else {
+            throw new Error(data.error || data.message || 'Upload failed');
+          }
+        } catch (err) {
+          console.error('Upload error:', err);
+          alert('Error uploading image: ' + err.message);
+          changeAvatarBtn.innerHTML = '<i class="fa-solid fa-camera"></i>';
+        } finally {
+          changeAvatarBtn.disabled = false;
+          avatarInput.value = '';
+        }
+      }
+    });
+
+    // ==== ABOUT ME EDIT ====
+    const aboutText = document.getElementById("aboutText");
+    const aboutInput = document.getElementById("aboutInput");
+    const editAboutBtn = document.getElementById("editAboutBtn");
+    const saveAboutBtn = document.getElementById("saveAboutBtn");
+
+    editAboutBtn.addEventListener("click", () => {
+      aboutInput.style.display = "block";
+      saveAboutBtn.style.display = "inline-block";
+      aboutText.style.display = "none";
+      editAboutBtn.style.display = "none";
+      aboutInput.value = aboutText.textContent.trim();
+      aboutInput.focus();
+    });
+
+    saveAboutBtn.addEventListener("click", async () => {
+      const newText = aboutInput.value.trim();
+      try {
+        saveAboutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+        saveAboutBtn.disabled = true;
+
+        const res = await fetch("/profile/update-about", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ aboutMe: newText })
+        });
+
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}`);
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          aboutText.textContent = newText || "— пока ничего не рассказал о себе";
+        } else {
+          throw new Error(data.error || 'Update failed');
+        }
+      } catch (err) {
+        console.error('Save error:', err);
+        alert('Error saving: ' + err.message);
+      } finally {
+        aboutInput.style.display = "none";
+        saveAboutBtn.style.display = "none";
+        aboutText.style.display = "block";
+        editAboutBtn.style.display = "inline-block";
+        saveAboutBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save';
+        saveAboutBtn.disabled = false;
+      }
+    });
+
+    // ==== THEME TOGGLE ====
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeBtn.innerHTML = savedTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      themeBtn.innerHTML = nextTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    });
+
+    // ==== LIKE FUNCTIONALITY ====
+    const likeBtn = document.getElementById("likeBtn");
+    const likesCount = document.getElementById("likesCount");
+
+    likeBtn.addEventListener("click", async () => {
+      try {
+        likeBtn.disabled = true;
+        const currentLikes = parseInt(likesCount.textContent) || 0;
+
+        const res = await fetch("/profile/likeadd", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ currentLikes })
+        });
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(`Server returned ${res.status}: ${errorText}`);
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          likesCount.textContent = data.likes;
+          likeBtn.classList.add("liked");
+          setTimeout(() => {
+            likeBtn.classList.remove("liked");
+          }, 1000);
+        } else {
+          throw new Error(data.error || "Like failed");
+        }
+      } catch (err) {
+        console.error("Like error:", err);
+        alert("Ошибка при лайке: " + err.message);
+      } finally {
+        likeBtn.disabled = false;
+      }
+    });
+
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+
+    document.querySelectorAll('.stat-item, .about-section, .events-section, .event-item').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eco Club — Welcome</title>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-light: #f6fff7;
+      --card-light: rgba(255,255,255,0.96);
+      --text: #06301a;
+      --muted: #4b5563;
+      --accent: #2ecc71;
+      --accent-strong: #15803d;
+      --glass: rgba(255,255,255,0.8);
+      --shadow: 0 18px 50px rgba(6,48,26,0.06);
+      --max-w: 1200px;
+      --transition: 320ms ease;
+    }
+    [data-theme="dark"]{
+      --bg-light:#07110b;
+      --card-light: rgba(10,20,15,0.6);
+      --text: #e6fff5;
+      --muted: #9aa6a0;
+      --accent: #55efc4;
+      --accent-strong: #0ea06b;
+      --shadow: 0 18px 50px rgba(0,0,0,0.5);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(46,204,113,0.06), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 80%, rgba(0,184,148,0.04), transparent 12%),
+                  var(--bg-light);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      line-height:1.45;
+      transition: background 300ms ease, color 300ms ease;
+    }
+
+    /* NAV */
+    .nav{
+      position:fixed;top:12px;left:12px;right:12px;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:10px 14px;border-radius:12px;z-index:120;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.45));
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+    [data-theme="dark"] .nav{
+      background: linear-gradient(180deg, rgba(8,16,12,0.6), rgba(8,16,12,0.45));
+    }
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--accent-strong)}
+    .brand img{width:46px;height:46px;border-radius:10px;object-fit:cover}
+    .brand .title{font-weight:700;font-size:1.05rem}
+    .nav .links{display:flex;gap:14px;align-items:center}
+    .nav .links a{ text-decoration:none;color:inherit;font-weight:600;padding:8px;border-radius:8px; }
+    .nav .links a:hover{color:var(--accent);transform:translateY(-2px)}
+    .nav .controls{display:flex;gap:8px;align-items:center}
+    .theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:transparent;cursor:pointer}
+    .btn-join{background:var(--accent);color:white;padding:8px 14px;border-radius:999px;border:0;font-weight:700;cursor:pointer;box-shadow:0 12px 30px rgba(46,204,113,0.14)}
+
+    /* HERO with parallax */
+    .hero{position:relative;min-height:92vh;display:flex;align-items:center;justify-content:center;padding-top:84px;overflow:hidden}
+    .hero__bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2000&q=80');background-size:cover;background-position:center;filter:brightness(0.55) contrast(1.05);transform:translateZ(0);will-change:transform}
+    .hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.18));mix-blend-mode:multiply}
+    .hero-inner{position:relative;z-index:20;width:100%;max-width:var(--max-w);padding:48px 22px;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .manifesto{background:var(--card-light);border-radius:16px;padding:34px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:transform 400ms ease}
+    .manifesto h1{margin:0 0 10px;font-size:2.25rem;letter-spacing:-0.02em}
+    .manifesto .subtitle{color:var(--muted);font-size:1.05rem;margin-bottom:12px}
+    .manifesto p{margin:0 0 12px;color:var(--muted)}
+    .manifesto .lead{color:var(--accent-strong);font-weight:700}
+    .manifesto .cta-row{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .manifesto .play{display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;color:var(--accent-strong);font-weight:700;cursor:pointer}
+
+    /* hero card */
+    .hero-card{border-radius:14px;padding:18px;background:var(--card-light);box-shadow:var(--shadow);min-height:150px;display:flex;flex-direction:column;gap:12px}
+    .hero-card .mini{display:flex;justify-content:space-between;align-items:center}
+    .mini .label{font-size:0.85rem;color:var(--muted)}
+    .mini .value{font-weight:800;font-size:1.3rem;color:var(--accent-strong)}
+
+    /* leaves */
+    .leaf{position:absolute;z-index:18;will-change:transform,opacity;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.12))}
+
+    /* main sections */
+    main{padding:36px 20px 90px;max-width:var(--max-w);margin:0 auto}
+    .section{margin:48px 0}
+    .center{text-align:center}
+
+    /* stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .stat-card{background:var(--card-light);border-radius:12px;padding:22px;text-align:center;box-shadow:var(--shadow);transition:transform .28s, box-shadow .28s}
+    .stat-card:hover{transform:translateY(-8px)}
+    .stat-number{font-size:2rem;font-weight:800;color:var(--accent-strong)}
+    .stat-label{color:var(--muted);margin-top:8px;font-weight:600}
+
+    /* TEAM */
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:18px}
+    .member{background:var(--card-light);border-radius:12px;padding:18px;text-align:center;box-shadow:var(--shadow);overflow:hidden;transition:transform .28s, box-shadow .28s}
+    .member:hover{transform:translateY(-10px)}
+    .member img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:6px solid rgba(255,255,255,0.6)}
+    [data-theme="dark"] .member img{border-color: rgba(10,20,15,0.6)}
+    .member h3{margin:8px 0 4px;font-size:1.05rem}
+    .member p{margin:0;color:var(--accent-strong);font-weight:700}
+    .member .quote{margin-top:10px;color:var(--muted);font-style:italic;font-size:0.95rem}
+
+    /* CTA footer */
+    .cta-footer{display:flex;flex-direction:column;align-items:center;gap:12px;padding:28px;border-radius:12px;background:linear-gradient(90deg,#ecfff0,#e6fff5);box-shadow:var(--shadow)}
+    [data-theme="dark"] .cta-footer{background:linear-gradient(90deg,rgba(10,20,15,0.6),rgba(10,20,15,0.45))}
+    .cta-footer h2{margin:0;font-size:1.5rem}
+    .cta-footer p{margin:0;color:var(--muted)}
+    .cta-footer .cta-btn{margin-top:6px;background:var(--accent-strong);color:white;padding:12px 22px;border-radius:999px;border:0;font-weight:700;cursor:pointer}
+
+    /* footer */
+    footer{margin-top:40px;padding:22px 0;color:var(--muted);display:flex;flex-direction:column;gap:12px;align-items:center}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .hero-inner{grid-template-columns:1fr; padding:28px;gap:20px}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .nav{left:8px;right:8px;padding:8px}
+      .manifesto h1{font-size:1.5rem}
+      .stats-grid{grid-template-columns:1fr}
+      .member img{width:100px;height:100px}
+    }
+
+    /* subtle keyframe extras */
+    @keyframes floaty {
+      0% { transform: translateY(-6px) rotate(0deg); opacity:0.95 }
+      50%{ transform: translateY(6px) rotate(5deg); opacity:1 }
+      100%{ transform: translateY(-6px) rotate(0deg); opacity:0.95 }
+    }
+    .float-slow{animation: floaty 6s ease-in-out infinite}
+    .float-med{animation: floaty 5s ease-in-out infinite}
+    .float-fast{animation: floaty 4s ease-in-out infinite}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" role="banner">
+    <a class="brand" href="#" aria-label="Eco Club">
+      <img src="https://cdn-icons-png.flaticon.com/512/3616/3616930.png" alt="logo">
+      <div class="title">Eco Club</div>
+    </a>
+
+    <div style="display:flex;gap:12px;align-items:center">
+      <nav class="links" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#stats">Stats</a>
+        <a href="#team">Team</a>
+      </nav>
+
+      <div class="controls" style="display:flex;gap:10px;align-items:center;margin-left:14px">
+        <button class="theme-toggle" id="themeToggle" aria-pressed="false" title="Toggle theme">
+          <i class="fa-regular fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="btn-join" id="navJoin">Join</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home" aria-label="Hero">
+    <div class="hero__bg" id="parallaxBg"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <!-- floating leaves (inline SVGs for sharpness) -->
+    <img class="leaf float-slow" id="leaf1"
+      src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='120' viewBox='0 0 160 120'><path d='M10 60 Q60 10 110 45 Q80 90 10 60Z' fill='%232ecc71'/></svg>"
+      alt="" style="left:6%;top:8%;width:88px;">
+    <img class="leaf float-med" id="leaf2"
+      src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='100' viewBox='0 0 140 100'><path d='M8 50 Q55 12 105 40 Q78 86 8 50Z' fill='%2300b894'/></svg>"
+      alt="" style="left:82%;top:22%;width:72px;">
+    <img class="leaf float-fast" id="leaf3"
+      src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='90' viewBox='0 0 120 90'><path d='M6 44 Q46 6 92 36 Q64 78 6 44Z' fill='%2355efc4'/></svg>"
+      alt="" style="left:28%;top:4%;width:56px;">
+
+    <div class="hero-inner">
+      <div class="manifesto" data-aos="fade-right" data-aos-delay="120">
+        <h1>Welcome to Our Green Future</h1>
+        <div class="subtitle">Planting hope, shaping tomorrow.</div>
+        <p>Eco Club is a family-founded initiative that proves small steps can change everything.</p>
+        <p class="lead">Complete daily eco-friendly tasks, earn rewards, track your impact, and learn in EcoLearn — our interactive education hub.</p>
+
+        <div class="cta-row">
+          <a href="/sign-up"class="btn-join" id="heroJoin">Join the Movemen</a>
+          <button class="play" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-arrow-down"></i> Learn more</button>
+        </div>
+      </div>
+
+      <aside class="hero-card" data-aos="zoom-in" data-aos-delay="200" role="complementary" aria-label="Stats preview">
+        <div class="mini">
+          <div>
+            <div class="label">Active Members</div>
+            <div class="value" id="miniMembers">0</div>
+          </div>
+          <div>
+            <div class="label">Trees planted</div>
+            <div class="value" id="miniTrees">0</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div style="height:10px;background:linear-gradient(90deg,var(--accent),#a8f6cf);border-radius:999px"></div>
+          <div style="font-size:0.88rem;color:var(--muted);margin-top:10px">Local campaigns • Education • Rewards</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- About -->
+    <section id="about" class="section" data-aos="fade-up">
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:start">
+        <div>
+          <h2>Our Vision</h2>
+          <p style="color:var(--muted);font-size:1.03rem">We believe daily habits have power. In recent years the world has faced intense climate shifts — but we choose action, not despair. Eco Club turns small efforts into measurable impact.</p>
+          <p style="color:var(--muted)">It starts with a seed in the soil, a bottle recycled, or a light turned off — it starts now. When small actions combine, they create a wave of change.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="stat-card" data-aos="flip-left" data-aos-delay="80">
+            <div style="font-size:0.9rem;color:var(--muted)">Trees Planted</div>
+            <div class="stat-number" data-target="1200">0</div>
+          </div>
+          <div class="stat-card" data-aos="flip-left" data-aos-delay="160">
+            <div style="font-size:0.9rem;color:var(--muted)">CO₂ Reduced (tons)</div>
+            <div class="stat-number" data-target="5800">0</div>
+          </div>
+          <div class="stat-card" data-aos="flip-left" data-aos-delay="240">
+            <div style="font-size:0.9rem;color:var(--muted)">Active Members</div>
+            <div class="stat-number" data-target="3450">0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats grid -->
+    <section id="stats" class="section center" data-aos="fade-up">
+      <h2>Key Statistics</h2>
+      <p style="color:var(--muted)">We measure results — not just promises.</p>
+
+      <div class="stats-grid" style="margin-top:20px">
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="60">
+          <div class="stat-number" data-target="1200">0</div>
+          <div class="stat-label">Trees Planted</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="140">
+          <div class="stat-number" data-target="5800">0</div>
+          <div class="stat-label">CO₂ Reduced (tons)</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="220">
+          <div class="stat-number" data-target="3450">0</div>
+          <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-number" data-target="28">0</div>
+          <div class="stat-label">Community Projects</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section" data-aos="fade-up">
+      <h2 class="center">Meet Our Team</h2>
+      <div class="team-grid" style="margin-top:18px">
+        <!-- Sardor Kazimov -->
+        <div class="member" data-aos="zoom-in" data-aos-delay="80">
+          <img src="ceo.jpg" alt="Sardor Kazimov">
+          <h3>Sardor Kazimov</h3>
+          <p>CEO</p>
+          <div class="quote">"We plant hope, not just trees."</div>
+        </div>
+
+        <!-- Mariam Talibjanova -->
+        <div class="member" data-aos="zoom-in" data-aos-delay="140">
+          <img src="mariam.jpg" alt="Mariam Talibjanova">
+          <h3>Mariam Talibjanova</h3>
+          <p>CEO</p>
+          <div class="quote">"We plant hope, not just trees."</div>
+        </div>
+
+        <!-- Nadin Talibjanova -->
+        <div class="member" data-aos="zoom-in" data-aos-delay="200">
+          <img src="nadin.jpg" alt="Nadin Talibjanova">
+          <h3>Nadin Talibjanova</h3>
+          <p>Head of Marketing Department</p>
+          <div class="quote">"Every post is a seed of change."</div>
+        </div>
+
+        <!-- Yasmin Talibjanova -->
+        <div class="member" data-aos="zoom-in" data-aos-delay="260">
+          <img src="yasmin.jpg" alt="Yasmin Talibjanova">
+          <h3>Yasmin Talibjanova</h3>
+          <p>Head of Design Department</p>
+          <div class="quote">"Designing for a greener tomorrow."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FOOTER -->
+    <section class="section" data-aos="zoom-in">
+      <div class="cta-footer">
+        <h2>Ready to join the movement?</h2>
+        <p>Take your first step — sign up and start doing eco-tasks today.</p>
+        <div>
+          <a href="/sign-up"class="cta-btn">Join the Movement</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div style="display:flex;gap:12px;align-items:center">
+      <img src="https://cdn-icons-png.flaticon.com/512/3616/3616930.png" alt="logo" style="width:36px;height:36px;border-radius:8px">
+      <div style="font-weight:700">Eco Club</div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+      <a href="#" aria-label="twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="facebook"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+
+    <div style="margin-top:8px;color:var(--muted);font-size:0.9rem">© <span id="year"></span> Eco Club — All rights reserved.</div>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+
+    // Init AOS
+    AOS.init({
+      duration: 700,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 80
+    });
+
+    // Parallax background movement on mouse move (subtle)
+    (function(){
+      const bg = document.getElementById('parallaxBg');
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 16; // +/-8px
+        const y = (e.clientY / window.innerHeight - 0.5) * 8; // +/-4px
+        bg.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.02)`;
+      });
+    })();
+
+    // Floating leaves animation (vertical drift + rotation)
+    (function(){
+      const leaves = [
+        {id:'leaf1', dx:0.9, dur:14000, sway:18},
+        {id:'leaf2', dx:-0.7, dur:17000, sway:12},
+        {id:'leaf3', dx:0.6, dur:12000, sway:22},
+      ];
+      leaves.forEach(cfg => {
+        const el = document.getElementById(cfg.id);
+        if(!el) return;
+        let start = performance.now();
+        function tick(t){
+          const elapsed = t - start;
+          const progress = (elapsed % cfg.dur) / cfg.dur;
+          const top = -12 + progress * 122; // in vh
+          const sway = Math.sin(progress * Math.PI * 2) * cfg.sway;
+          el.style.transform = `translate3d(${sway + cfg.dx*6}px, ${top}vh, 0) rotate(${progress*360}deg)`;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    })();
+
+    // Animated counters that start when element visible
+    (function(){
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      const options = {threshold: 0.45};
+      const run = (el) => {
+        const target = +el.getAttribute('data-target');
+        const duration = 1400;
+        let start = null;
+        function step(ts){
+          if(!start) start = ts;
+          const p = Math.min((ts-start)/duration,1);
+          const ease = 1 - Math.pow(1-p,3);
+          const val = Math.floor(target * ease);
+          el.textContent = val >= 1000 ? (val/1000).toFixed(val%1000===0?0:1)+'k' : val;
+          if(p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      };
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            run(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, options);
+
+      counters.forEach(c => io.observe(c));
+
+      // Also update mini hero numbers (simple set)
+      const miniMembers = document.getElementById('miniMembers');
+      const miniTrees = document.getElementById('miniTrees');
+      if(miniMembers) miniMembers.textContent = '3,450';
+      if(miniTrees) miniTrees.textContent = '1,200';
+    })();
+
+    // Smooth scrolling for nav links
+    (function(){
+      document.querySelectorAll('.links a').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const href = a.getAttribute('href');
+          if(href && href.startsWith('#')){
+            e.preventDefault();
+            const el = document.querySelector(href);
+            if(el) el.scrollIntoView({behavior:'smooth'});
+          }
+        });
+      });
+      // Hero join buttons
+      document.getElementById('heroJoin').addEventListener('click', ()=> {
+        document.querySelector('.cta-footer').scrollIntoView({behavior:'smooth'});
+      });
+      document.getElementById('navJoin').addEventListener('click', ()=> {
+        document.querySelector('.cta-footer').scrollIntoView({behavior:'smooth'});
+      });
+    })();
+
+    // Theme toggle with localStorage
+    (function(){
+      const root = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+
+      const setIcon = (theme) => {
+        if(theme === 'dark'){
+          icon.className = 'fa-solid fa-sun';
+          toggle.setAttribute('aria-pressed','true');
+        } else {
+          icon.className = 'fa-regular fa-moon';
+          toggle.setAttribute('aria-pressed','false');
+        }
+      };
+
+      const saved = localStorage.getItem('ecoTheme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      root.setAttribute('data-theme', saved);
+      setIcon(saved);
+
+      toggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('ecoTheme', next);
+        setIcon(next);
+      });
+    })();
+
+    // Respect prefers-reduced-motion
+    (function(){
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if(mq.matches){
+        document.querySelectorAll('[data-aos]').forEach(el => el.removeAttribute('data-aos'));
+        document.querySelectorAll('.leaf').forEach(l => l.style.animation = 'none');
+      }
+    })();
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
