@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Add Event</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 8px;
+  background: #2c2c2c;
+  color: #fff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  background: #4caf50;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+#message {
+  margin-top: 15px;
+  text-align: center;
+}
+
+    </style>
+  <div class="container">
+    <h1>Админ: Добавить событие</h1>
+
+    <form id="eventForm">
+      <label>Название:
+        <input type="text" name="title" required>
+      </label>
+
+      <label>Дата:
+        <input type="date" name="date">
+      </label>
+
+      <label>Дата начала:
+        <input type="date" name="startDate">
+      </label>
+
+      <label>Дата конца:
+        <input type="date" name="endDate">
+      </label>
+
+      <label>Локация:
+        <input type="text" name="location" required>
+      </label>
+
+      <label>Описание:
+        <textarea name="description"></textarea>
+      </label>
+
+      <label>Ссылка:
+        <input type="url" name="link">
+      </label>
+
+      <label>Теги (через запятую):
+        <input type="text" name="tags">
+      </label>
+
+      <label>Лайки (по умолчанию 0):
+        <input type="number" name="likes" min="0" value="0">
+      </label>
+
+      <button type="submit">Создать событие</button>
+    </form>
+
+    <p id="message"></p>
+  </div>
+
+<script>
+  const form = document.getElementById("eventForm");
+  const message = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Преобразуем теги в массив
+    if (data.tags) {
+      data.tags = data.tags.split(",").map(tag => tag.trim());
+    } else {
+      data.tags = [];
+    }
+
+    data.likes = parseInt(data.likes) || 0;
+
+    try {
+      const res = await fetch('/admin', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data) 
+      });
+
+      if (res.ok) {
+        message.textContent = "✅ Событие успешно создано!";
+        form.reset();
+      } else {
+        const err = await res.json();
+        message.textContent = "❌ Ошибка: " + (err.error || "Не удалось создать событие");
+      }
+    } catch (error) {
+      message.textContent = "⚠️ Ошибка соединения: " + error.message;
+    }
+  });
+</script>
+</body>
+</html>
