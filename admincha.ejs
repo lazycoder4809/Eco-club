@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать челлендж</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    input, textarea, select {
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 80px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #27ae60;
+    }
+
+    #responseMessage {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #responseMessage.success {
+      color: green;
+    }
+
+    #responseMessage.error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Создать челлендж</h1>
+
+    <form id="challengeForm">
+      <label>Название:</label>
+      <input type="text" name="title" required>
+
+      <label>Описание:</label>
+      <textarea name="description"></textarea>
+
+      <label>Картинка (URL):</label>
+      <input type="text" name="image">
+
+      <label>Длительность:</label>
+      <input type="text" name="duration">
+
+      <label>Сложность:</label>
+      <select name="difficulty">
+        <option value="easy">Легко</option>
+        <option value="medium" selected>Средне</option>
+        <option value="hard">Трудно</option>
+      </select>
+
+      <label>Теги (через запятую):</label>
+      <input type="text" name="tags">
+
+      <label>Очки (необязательно, иначе выставятся по сложности):</label>
+      <input type="number" name="points" min="0" placeholder="Например, 10">
+
+      <button type="submit">Создать</button>
+    </form>
+
+    <div id="responseMessage"></div>
+  </div>
+
+  <script>
+    document.getElementById("challengeForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = {
+        title: form.title.value,
+        description: form.description.value,
+        image: form.image.value || undefined,
+        duration: form.duration.value,
+        difficulty: form.difficulty.value,
+        tags: form.tags.value.split(",").map(t => t.trim()).filter(Boolean),
+      };
+
+      if (form.points.value) {
+        data.points = parseInt(form.points.value, 10);
+      }
+
+      try {
+        const res = await fetch("/admincha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        const msg = document.getElementById("responseMessage");
+
+        msg.innerText = result.message;
+        msg.className = res.ok ? "success" : "error";
+
+        if (res.ok) {
+          form.reset();
+        }
+      } catch (err) {
+        console.error(err);
+        const msg = document.getElementById("responseMessage");
+        msg.innerText = "Ошибка при создании челленджа";
+        msg.className = "error";
+      }
+    });
+  </script>
+</body>
+</html>
