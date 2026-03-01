@@ -270,14 +270,15 @@ app.get("/home", checkUser, requireAuth, async (req, res) => {
   });
 
   // ===== DB CONNECTION =====
-  const dbURI = 'mongodb+srv://Coder:w8ts54v7@cluster0.mjk1imq.mongodb.net/node-ussers?retryWrites=true&w=majority';
 
-  mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-      console.log('✅ MongoDB connected');
-      app.listen(3000, () => {
-        console.log('✅ Server running on http://localhost:3000');
-      });
-    })
-    .catch(err => console.error('❌ MongoDB connection error:', err));
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://Coder:w8ts54v7@cluster0.mjk1imq.mongodb.net/node-ussers?retryWrites=true&w=majority';
+const PORT = process.env.PORT || 3000;
 
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('✅ MongoDB connected');
+    app.listen(PORT, () => {
+      console.log(`✅ Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => console.error('❌ MongoDB connection error:', err));
