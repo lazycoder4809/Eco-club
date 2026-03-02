@@ -29,12 +29,13 @@ const Get_challenges = async (req, res) => {
     );
 
     res.render('challenges', {
-      challenges: filteredChallenges,
-      completedChallenges: user.completedChallenges.length,
-      currentRating: user.currentRating || 100,
-      userRank: user.rank || 'Новичок',
-      totalPoints: user.totalPoints || 0
-    });
+  user: user,  // ← ADD THIS
+  challenges: filteredChallenges,
+  completedChallenges: user.completedChallenges.length,
+  currentRating: user.currentRating || 100,
+  userRank: user.rank || 'Новичок',
+  totalPoints: user.totalPoints || 0
+});
   } catch (err) {
     console.error('Error fetching challenges:', err);
     res.status(500).send('Internal server error');
