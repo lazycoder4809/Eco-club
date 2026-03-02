@@ -1,9 +1,6 @@
 const Challenge = require('../models/Challengs');
-const  jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const UserBasics = require('../models/userDeateilsShema');
-
-
-
 
 const Get_challenges = async (req, res) => {
   try {
@@ -12,6 +9,7 @@ const Get_challenges = async (req, res) => {
 
     if (!token) {
       return res.render('challenges', {
+        user: {},  // ✅ ADDED
         challenges, 
         completedChallenges: 0,
         currentRating: 100,
@@ -23,32 +21,28 @@ const Get_challenges = async (req, res) => {
     const decoded = jwt.verify(token, "w8ts54v7/2012/16/altay/sand");
     const user = await UserBasics.findById(decoded.id);
 
-
     const filteredChallenges = challenges.filter(ch => 
       !user.completedChallenges.includes(ch._id.toString())
     );
 
     res.render('challenges', {
-  user: user,  // ← ADD THIS
-  challenges: filteredChallenges,
-  completedChallenges: user.completedChallenges.length,
-  currentRating: user.currentRating || 100,
-  userRank: user.rank || 'Новичок',
-  totalPoints: user.totalPoints || 0
-});
+      user: user,  // ✅ ADDED
+      challenges: filteredChallenges,
+      completedChallenges: user.completedChallenges.length,
+      currentRating: user.currentRating || 100,
+      userRank: user.rank || 'Новичок',
+      totalPoints: user.totalPoints || 0
+    });
+
   } catch (err) {
     console.error('Error fetching challenges:', err);
     res.status(500).send('Internal server error');
   }
 };
 
-
-
-
 const Create_Challeng = async (req, res) => {
   try {
     const { title, description, image, duration, difficulty, tags, points } = req.body;
-
     const newChallenge = new Challenge({
       title,
       description,
@@ -58,9 +52,7 @@ const Create_Challeng = async (req, res) => {
       tags: Array.isArray(tags) ? tags : (tags ? tags.split(',').map(t => t.trim()) : []),
       points: points ? parseInt(points, 10) : undefined
     });
-
     await newChallenge.save();
-
     res.json({ success: true, message: "Челлендж создан!", challenge: newChallenge });
   } catch (err) {
     console.error('Error creating challenge:', err);
