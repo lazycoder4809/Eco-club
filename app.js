@@ -269,7 +269,7 @@ app.get("/home", checkUser, requireAuth, async (req, res) => {
     res.send(req.cookies);
   });
 
-const dbURI = 'mongodb+srv://Coder:w8ts54v7@ac-ut0glrz.mjk1imq.mongodb.net/node-users?retryWrites=true&w=majority';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://Coder:w8ts54v7@ac-ut0glrz.mjk1imq.mongodb.net/node-users?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
